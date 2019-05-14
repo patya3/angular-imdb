@@ -1,0 +1,9 @@
+.cast-card {
+  background-color: white;
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+mat-chip {
+  margin-left: 20px !important;
+}

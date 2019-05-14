@@ -1,0 +1,63 @@
+<section
+  style="height: 300px"
+  class="layer"
+  fxLayoutAlign="center center"
+  fxLayout="column">
+  <div>
+    <h1 [ngStyle.gt-sm]="{'font-size': '40px'}">{{categoryName | async}}</h1>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span routerLink="/" style="cursor: pointer">Home</span>
+    <span class="padding-left">/</span>
+    <span class="padding-left">Top 50 In Category</span>
+    <span class="padding-left">/</span>
+    <span class="padding-left">{{ categoryName | async}}</span>
+  </div>
+</section>
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex.gt-sm="60">
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="poster">
+        <mat-header-cell fxFlex="20%" *matHeaderCellDef mat-sort-header>Poster</mat-header-cell>
+        <mat-cell fxFlex="20%" *matCellDef="let element">
+          <a routerLink="/movies/{{element.id}}">
+            <img class="table-img"
+                 *ngIf="element.poster_path"
+                 [src]="'http://image.tmdb.org/t/p/w200' + element.poster_path"
+                 width="100"
+                 [ngStyle.lt-md]="{'width': '50px'}">
+            <img *ngIf="!element.poster_path" src="assets/no-image.svg" alt="no image">
+          </a>
+        </mat-cell>
+
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell fxFlex.gt-sm="40" fxFlex.lt-sm="30" *matHeaderCellDef mat-sort-header >Title</mat-header-cell>
+        <mat-cell fxFlex.gt-sm="40" fxFlex.lt-sm="30" *matCellDef="let element">{{ element.title}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="rating">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Rating</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.vote_average }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="release_date" >
+        <mat-header-cell fxFlex.gt-sm="10%" *matHeaderCellDef mat-sort-header>Realease Date</mat-header-cell>
+        <mat-cell fxFlex.gt-sm="10%" *matCellDef="let element">{{element.release_date}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,25, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" fxLayoutAlign.gt-md="center center">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon color="primary">menu</mat-icon>
+    </button>
+  </div>
+  <div fxFlex.gt-md="60%" fxFlex="100%" fxFlexOffset.lt-sm="72">
+    <div fxLayoutGap="20px">
+      <a routerLink="/"><img src="assets/imdb.jpg" alt="home" width="70" style="position: absolute"></a>
+        <a [matMenuTriggerFor]="categories" fxHide.xs class="margin-left">
+          Top In Category
+          <mat-icon color="primary" class="icon-pos">keyboard_arrow_down</mat-icon>
+        </a>
+
+        <mat-menu #categories="matMenu" ngClass="margin-0">
+          <a mat-menu-item routerLink="/category/35">Comedy</a>
+          <a mat-menu-item routerLink="/category/28">Action</a>
+          <a mat-menu-item routerLink="/category/53">Thriller</a>
+          <a mat-menu-item routerLink="/category/27">Horror</a>
+          <a mat-menu-item routerLink="/category/18">Drama</a>
+          <a mat-menu-item routerLink="/category/10749">Romance</a>
+        </mat-menu>
+      <a *ngIf="isLoggedIn$ | async" fxHide.xs style="cursor: pointer" routerLink="/auth/favorites">Favorites</a>
+    </div>
+    <div fxFlex fxLayoutAlign="flex-end" fxHide.xs>
+      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+        <li *ngIf="!(isLoggedIn$ | async)">
+          <a routerLink="/auth/login">
+            Login
+          </a>
+        </li>
+        <li *ngIf="isLoggedIn$ | async">
+          <a style="cursor: pointer" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</mat-toolbar>

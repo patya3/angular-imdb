@@ -1,0 +1,44 @@
+<div fxFill fxLayoutAlign="center" >
+<slideshow
+  fxFill
+  fxFlex.gt-md="59%"
+  [height]="carouselHeight"
+  [autoPlay]="true"
+  [showArrows]="true"
+  [showDots]="true"
+  [imageUrls]="backdrops$"
+  [showCaptions]="true"
+  [autoPlayWaitForLazyLoad]="true"
+  [backgroundPosition]="'end center'">
+</slideshow>
+</div>
+<h1 fxLayout="row" fxLayoutAlign="center" #target><a (click)="scrollToElement(target)">Top Rated Movies</a></h1>
+<div fxLayout="row" fxLayoutAlign="center" >
+<div fxLayout="row wrap" fxLayoutGap="1%" fxLayoutAlign="center" fxFlex.gt-md="60%">
+
+  <mat-card *ngFor="let movie of topRatedMovies$ | async"
+            class="movie-card mat-elevation-z10"
+            fxFlex.gt-xs="0 1 calc(50% - 2%)"
+            fxFlex.gt-md="0 1 calc(33.3% - 2%)">
+
+    <img mat-card-image [src]="imgUrl(movie.backdrop_path)">
+
+    <mat-card-content>
+      <h3>{{movie.title}}</h3>
+      <div>
+        <p>Avarage Rating: {{movie.vote_average}}</p>
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions class="course-actions" fxFlexAlign="end">
+
+      <button [routerLink]="['/movies', movie.id]" mat-button class="mat-raised-button mat-primary">
+        DETAILS
+      </button>
+
+    </mat-card-actions>
+
+  </mat-card>
+</div>
+</div>

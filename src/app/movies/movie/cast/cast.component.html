@@ -1,0 +1,38 @@
+<div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="order">
+    <mat-header-cell fxFlex="10%" fxHide.lt-sm *matHeaderCellDef mat-sort-header>No.</mat-header-cell>
+    <mat-cell fxFlex="10%" fxHide.lt-sm *matCellDef="let element">{{element.order+1}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="photo">
+    <mat-header-cell fxFlex="20%" [ngStyle.lt-sm]="{'margin-left': '10px'}" *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
+    <mat-cell fxFlex="20%" [ngStyle.lt-sm]="{'margin-left': '10px'}" *matCellDef="let element">
+      
+      <img *ngIf="element.photo" mat-card-avatar [src]="'http://image.tmdb.org/t/p/w45' + element.photo">
+      <img *ngIf="!element.photo" mat-card-avatar src="assets/no-image.svg" alt="no image">
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="character">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Character</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.character }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+
+<mat-paginator [pageSize]="15" [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>

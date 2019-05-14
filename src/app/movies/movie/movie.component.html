@@ -1,0 +1,75 @@
+<section id="main-details"
+         class="ng-view"
+         [ngStyle]="{'background-image': 'url('+imgUrl(movie.backdrop_path, 'w1400_and_h450_face')+')'}">
+  <div class="layer"></div>
+  <div class="main-details-background" fxLayout="row" fxLayoutAlign="center">
+    <div fxLayout="row wrap"
+         fxLayoutGap="1%"
+         fxLayoutAlign="left"
+         fxFlex.gt-md="60%"
+         fxFlex="100%"
+        fxLayoutAlign.lt-md="center"
+        [ngStyle.lt-lg]="{'padding':'30px'}">
+      <div fxLayoutAlign="left">
+        <img [src]="imgUrl(movie.poster_path, 'w300')">
+      </div>
+      <div
+        fxLayout="column"
+        fxFlex
+        fxLayoutAlign="start"
+        fxLayoutGap="2%"
+        fxFlex.lt-md="100%">
+        <div><h1 class="title">{{movie.title}}</h1></div>
+        <div fxLayout="row">
+          <mat-progress-spinner [diameter]="58" mode="determinate" [value]="progress" color="warn"></mat-progress-spinner>
+          <div style="position: relative; top: 20px; left: -40px">
+            {{movie.vote_average}}
+          </div>
+          <button (click)="markAsFavorite(true)"
+                  mat-fab matTooltip="Mark As Favorite"
+                  *ngIf="(isLoggedIn$ | async) && !(isFavorite | async)">
+            <mat-icon aria-label="heart icon">favorite</mat-icon>
+          </button>
+          <button (click)="markAsFavorite(false)"
+                  mat-fab matTooltip="Delete From Favorites"
+                  *ngIf="(isLoggedIn$ | async) && (isFavorite | async)">
+            <mat-icon aria-label="heart icon">cancel</mat-icon>
+          </button>
+        </div>
+        <div><h3>Overview:</h3></div>
+        <div>{{movie.overview}}</div>
+        <div><h3>Featured Crew</h3></div>
+        <div fxLayout="row wrap" fxLayoutGap="4%">
+          <div *ngFor="let member of movie.crew">
+            <div><strong>{{member.name}}</strong></div>
+            <div>{{member.job}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div fxLayout="row wrap"
+         fxLayoutGap="1%"
+         fxLayoutAlign="left"
+         fxFlex.gt-md="60%"
+         fxFlex="100%"
+         fxLayoutAlign.lt-md="center"
+         [ngStyle.lt-lg]="{'padding':'30px'}">
+      <mat-tab-group mat-stretch-tabs fxFill>
+        <mat-tab label="Details">
+          <ng-template matTabContent>
+            <app-details [details]="detailsComponentData()"></app-details>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="All Cast">
+          <ng-template matTabContent>
+            <app-cast [cast]="movie.all_cast"></app-cast>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+<section
+  style="height: 300px"
+  class="layer"
+  fxLayoutAlign="center center"
+  fxLayout="column">
+  <div>
+    <h1 [ngStyle.gt-sm]="{'font-size': '40px'}">Favorites</h1>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span routerLink="/" style="cursor: pointer">Home</span>
+    <span class="padding-left">/</span>
+    <span class="padding-left">Favorites</span>
+  </div>
+</section>
+<section>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div fxLayout="column"
+         fxLayoutGap="1%"
+         fxLayoutAlign="center"
+         fxFlex.gt-md="60%"
+          fxFlex.lt-sm="95%">
+
+      <mat-card *ngFor="let movie of favoriteMovies$ | async"
+                class="movie-card mat-elevation-z10"
+                fxLayout.lt-sm="column">
+        <div
+          fxFlex.lg="13"
+          fxFlex.lt-xl="20"
+          fxFlex.lt-sm="100"
+          fxLayoutAlign.lt-sm="center">
+          <img [src]="imgUrl(movie.poster_path)"
+               [ngStyle.gt-xs]="{'width': '116px'}">
+        </div>
+
+        <mat-card-content
+          fxLayout="column"
+          fxFlex.lt-sm="100"
+          fxLayoutAlign.lt-sm="center center"
+          [ngStyle.lt-sm]="{'padding': '20px 27px 0 27px'}">
+          <div fxFlex fxLayout="row">
+            <mat-progress-spinner [diameter]="50" mode="determinate" [value]="movie.vote_average * 10" color="warn"></mat-progress-spinner>
+            <div style="position: relative; top: 18px; left: -34px">
+              {{movie.vote_average | number: '1.1-1'}}
+            </div>
+            <h3>{{movie.title}}</h3>
+          </div>
+          <div>
+            <p>{{(movie.overview.length > 305) ? (movie.overview | slice:0:305)+'...' : (movie.overview)}}</p>
+          </div>
+          <mat-card-actions
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="1%"
+            fxLayoutGap.lt-sm="20px"
+            class="padding-left">
+
+            <button mat-mini-fab [routerLink]="['/movies', movie.id]" mat-button class="mat-raised-button mat-primary">
+              <mat-icon>list</mat-icon>
+            </button>
+            <span fxHide.lt-sm>Details</span>
+
+            <button
+              mat-mini-fab
+              (click)="deleteFromFavorites(movie.id, false)"
+              (mouseover)="movie.hoverActive = true"
+              (mouseout)="movie.hoverActive = false"
+              [color]="movie.hoverActive ? 'warn' : 'primary'"
+              [ngClass]="{'green': !movie.hoverActive}"
+              >
+              <mat-icon *ngIf="movie.hoverActive">cancel</mat-icon>
+              <mat-icon *ngIf="!movie.hoverActive">favorite</mat-icon>
+            </button>
+            <span *ngIf="!movie.hoverActive" fxHide.lt-sm>Favorite</span>
+            <span *ngIf="movie.hoverActive" fxHide.lt-sm>Delete from favorites</span>
+
+          </mat-card-actions>
+
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+  </div>
+</section>

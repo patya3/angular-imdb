@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  background-color: #303030;
+}
+
+body {
+  margin: 0;
+  background-image: url("assets/yellow-lines.svg");
+}
+
+.mat-toolbar {
+  background-color: #212121 !important;
+}
+
+mat-sidenav-container {
+  background-image: url("assets/yellow-lines.svg");
+
+}
+
+.layer {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.global-layer {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+}
+
+.padding-left {
+  padding-left: 7px;
+}
+
+@media screen and (max-width: 599px) {
+  .layer {
+    margin-bottom: 0;
+  }
+}

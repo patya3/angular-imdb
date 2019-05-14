@@ -1,0 +1,51 @@
+<section
+  style="height: 300px"
+  class="layer"
+  fxLayoutAlign="center center"
+  fxLayout="column">
+  <div>
+    <h1 [ngStyle.gt-sm]="{'font-size': '40px'}">Login</h1>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span routerLink="/" style="cursor: pointer">Home</span>
+    <span class="padding-left">/</span>
+    <span class="padding-left">Login</span>
+  </div>
+</section>
+<section>
+  <form
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()">
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Your username"
+        formControlName="username">
+      <mat-hint>Please enter a valid username.</mat-hint>
+      <mat-error>Invalid or missing username.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="password"
+        matInput
+        placeholder="Your password"
+        formControlName="password">
+      <mat-hint>Please enter your password.</mat-hint>
+      <mat-error>Missing password.</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+    <mat-divider></mat-divider>
+  </form>
+  <!--<mat-divider></mat-divider>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="space-around center"
+    fxLayoutGap="5%">
+    <button mat-raised-button (click)="loginAsGuest()" color="warn">Login As Guest</button>
+  </div>-->
+</section>
+

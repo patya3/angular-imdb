@@ -1,0 +1,45 @@
+<mat-nav-list>
+  <mat-list-item>
+  <img src="assets/imdb.jpg" alt="home" width="70" style="position: absolute">
+  </mat-list-item>
+  <a mat-list-item
+     (click)="onClose()"
+     routerLink="/">
+    <mat-icon>home</mat-icon>
+    <span class="nav-caption"> Home</span>
+  </a>
+  <a *ngIf="!(isLoggedIn$ | async)"
+     mat-list-item
+     (click)="onClose()"
+     routerLink="/auth/login">
+    <mat-icon>input</mat-icon>
+    <span class="nav-caption">Login</span>
+  </a>
+  <mat-list-item>
+    <button mat-icon-button [matMenuTriggerFor]="categories">
+      <mat-icon>subject</mat-icon>
+      Top In Category
+    </button>
+    <mat-menu #categories="matMenu" ngClass="margin-0">
+      <a mat-menu-item routerLink="/category/35" (click)="onClose()">Comedy</a>
+      <a mat-menu-item routerLink="/category/28" (click)="onClose()">Action</a>
+      <a mat-menu-item routerLink="/category/53" (click)="onClose()">Thriller</a>
+      <a mat-menu-item routerLink="/category/27" (click)="onClose()">Horror</a>
+      <a mat-menu-item routerLink="/category/18" (click)="onClose()">Drama</a>
+      <a mat-menu-item routerLink="/category/10749" (click)="onClose()">Romance</a>
+    </mat-menu>
+  </mat-list-item>
+  <a *ngIf="isLoggedIn$ | async"
+     mat-list-item
+     (click)="onClose()"
+     routerLink="/auth/favorites">
+    <mat-icon>favorite</mat-icon>
+    <span class="nav-caption"> Favorites</span>
+  </a>
+  <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout(); onClose()">
+    <button mat-icon-button>
+      <mat-icon>eject</mat-icon>
+      <span class="nav-caption"> Logout</span>
+    </button>
+  </mat-list-item>
+</mat-nav-list>

@@ -20,7 +20,12 @@
           <a mat-menu-item routerLink="/category/18">Drama</a>
           <a mat-menu-item routerLink="/category/10749">Romance</a>
         </mat-menu>
-      <a *ngIf="isLoggedIn$ | async" fxHide.xs style="cursor: pointer" routerLink="/auth/favorites">Favorites</a>
+      <a *ngIf="isLoggedIn$ | async"
+         fxHide.xs
+         style="cursor: pointer; margin-left: 20px;"
+         routerLink="/auth/favorites">
+        Favorites
+      </a>
     </div>
     <div fxFlex fxLayoutAlign="flex-end" fxHide.xs>
       <ul fxLayout fxLayoutGap="10px" class="navigation-items">

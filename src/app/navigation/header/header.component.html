@@ -22,7 +22,8 @@
         </mat-menu>
       <a *ngIf="isLoggedIn$ | async"
          fxHide.xs
-         style="cursor: pointer; margin-left: 20px;"
+         style="cursor: pointer;"
+         class="m-left"
          routerLink="/auth/favorites">
         Favorites
       </a>
